@@ -27,4 +27,19 @@ Then, for Deliverable 3, I tried to make different changes to the model in order
 6. For Attempts 6 and 7 I tried a cople different settings (more or less layers, different node settings) and got worse results than the baseline.
 
 For all of the prior attempts, I only had one attempt that did significantly better than baseline.  Knowing that neural networks can be thrown off by outlier data, I revisited the topic of data cleanup and attempted to clean the data even more (consolidate categories, drop variables that offered little data):
-- 
+- Of the Organization types, Co-operative and Corporation were a very small percentage of the overall values so I consolidated them into an OTHER bucket.
+- Similarly, in the USE CASE category Community Service, Health Care, and Other were very small percentages of the overall category and I consolidated them into a single OTHER bucket as well.
+- Looking at INCOME AMT, I consolidated a lot of the ultra-high amounts into an OTHER bucket.
+- I dropped both the ASK_AMT and STATUS columns.  A little more than half of the Ask Amount was 5000 and then the rest of the values were individual amounts that ranged from 5,001 to millions.  And only 5 of the data points in STATUS were 0, the rest were 1.  Effectively it didn't offer much to the data.
+
+I then reran the model using baseline settings but on the cleaner data:
+1. Attempt 8 was baseline on clean data and accuracy went up to 71%
+2. On Attempt 9 I decreased the number of nodes on the clean data set and got 62% accuracy.
+
+I stopped at this point, given the time constraint.  I was not able to hit the 75% accuracy but assume that I would be able to if I either continue to tweak the model parameters on this new clean data set or go back and modify the data preprocessing further and rerun.
+
+## Summary
+
+In summary, while I was not able to achieve the 75% target accuracy, I was able to get much better performance than the Deliverable 2 baseline results by further preprocessing the data and modifying the parameters of the neural network.  
+
+I would recommend attempting to use a random forest model to predict the outcomes on this data set and then compare the accuracy results of the test versus the neural network.  In this case, when I was doing the additional preprocessing between attempts 7 and 8, I did not consider the proportion of those dropped data columns relative to the target variable.  For example, I dropped the STATUS column because there were only 5 of ~40K rows that were STATUS = 0.  However, if there were only 5 unsuccessful campaigns and all 5 were STATUS = 0, something like a decision tree could easily identify that.  A random forest could better handle some of the categorical variables as-is and might discover useful patterns in the data points we ended up consolidating/dropping to make the data easier for the neural network to process.
