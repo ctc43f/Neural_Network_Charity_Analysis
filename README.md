@@ -14,3 +14,4 @@ The goal of this week's analysis was to use machine learning and neural networks
 
 The below table summarizes the results of the 9 different variations I attempted in order to reach 75% accuracy:
 
+![Summary Table](/Resources/summary_table.png)
